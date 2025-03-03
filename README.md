@@ -1,7 +1,7 @@
 # Outgoing OAuth2 Client Credentials Traefik Plugin
 This is a middleware plugin for [Traefik](https://traefik.io/) to authorize *outgoing* requests using [OAuth2 Client Credentials Flow](https://datatracker.ietf.org/doc/html/rfc6749#section-4.4). The main idea is to use this plugin for separation of concerns in front of an external target.
 
-Install manually or from the [Traefik Plugin Catalog](https://plugins.traefik.io/plugins).
+Install manually or from the [Traefik Plugin Catalog](https://plugins.traefik.io/plugins/67c5fc454e61aa8e06b2536c/outgoing-o-auth2-cc).
 
 This fulfills the same goal as [Upstream OAuth](https://plugins.traefik.io/plugins/63cd79ab3cccb4a7200f6f54/upstream-o-auth). Apart from a different set of configuration options, this plugin does not have any dependencies beyond the Go standard library. The disadvantage is that the authorization implementation may be more brittle.
 
@@ -75,7 +75,7 @@ sequenceDiagram
     MW->>Target: Request with Bearer Token
     Target->>Client: Response
 ```
-[Mermaid Live](https://mermaid.live/edit#pako:eNp9kk1rwzAMhv-K5nMHYbBLYIXuA3YJlDVQGLl4iZqaNFIm2-u20v8-O2mbMcJ8iGXrffXIdg6q5ApVqiy-e6QSH42uRbcFQRgPO4PkrufzbJ3CS1RYN2SGL3cOPDXEewLHDRKwAH52RrAaFHFk61Bh4d2WxXxrZ5hghfKBkp4AEJNhNmWfHZ1TplM3i7JEayGP1NHwJqgbeM7zJaycdt7C1R3cJMmouDQ0oOOxbMdkETbC7SRxNCNVf1nRMNZYarGGangSYfkH2nd4mySAUTigs_UEqA-GsC-Qa6nRXR4D9ibg71ELyu-7GGQTp1Qz1aK02lThzQ9RXKhw9y0WKg1hpaUpVEHHoNPe8eqLSpU68ThTwr7eqnSjdzasfFdpd_5bLrudplfm8_r4A3SHwZw
+[Mermaid Live](https://mermaid.live/edit#pako:eNp9kk1rwzAMhv-K5nMHYbBLYIXuA3YJlDVQGLl4iZqaNFIm2-u20v8-O2mbMcJ8iGXrffXIdg6q5ApVqiy-e6QSH42uRbcFQRgPO4PkrufzbJ3CS1RYN2SGL3cOPDXEewLHDRKwAH52RrAaFHFk61Bh4d2WxXxrZ5hghfKBkp4AEJNhNmWfHZ1TplM3i7JEayGP1NHwJqgbeM7zJaycdt7C1R3cJMmouDQ0oOOxbMdkETbC7SRxNCNVf1nRMNZYarGGangSYfkH2nd4mySAUTigs_UEqA-GsC-Qa6nRXR4D9ibg71ELyu-7GGQTp1Qz1aK02lThzQ9RXKhw9y0WKg1hpaUpVEHHoNPe8eqLSpU68ThTwr7eqnSjdzasfFdpd_5bLrudplfm8_r4A3SHwZw)
 
 ## License
 [Apache 2.0](LICENSE)
