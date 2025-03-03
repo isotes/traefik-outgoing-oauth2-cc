@@ -1,0 +1,12 @@
+displayName: "Outgoing OAuth2 CC"
+type: middleware
+
+import: github.com/isotes/traefik-outgoing-oauth2-cc
+
+summary: "Authenticate outgoing requests using OAuth2 Client Credentials flow"
+
+testData:
+  authGrantRequest:
+    url: https://example.com/request-token
+    user: foo
+    pass: bar
