@@ -14,7 +14,7 @@ experimental:
   plugins:
     outgoing-oauth2-cc:
       moduleName: github.com/isotes/traefik-outgoing-oauth2-cc
-      version: v1.0.0
+      version: v1.0.1
 ```
 
 ### Dynamic
@@ -34,24 +34,24 @@ http:
             user: foo  # optional: the user for basic auth; alternatively, use a pre-computed 'Authorization' header value
             pass: ~file~/secrets/password.txt  # the password (here: read from a file)
             scope: read  # optional: the access token scope
-            expiresMarginSeconds: 10  # optional: the margin in seconds subtracted from the expires_in response
+            expiresMarginSeconds: 10  # optional: the margin in seconds subtracted from the expires_in response (default & mininum: 1)
             basicAuthSkipEncoding: false  # optional: set to true to disable url-encoding of user/pass for non-RFC-compliant authorization servers
-            headers:  # HTTP headers for the auth grant request
+            headers:  # optional HTTP headers for the Client Authentication request
               - name: X-Bar
-                value: ~base64~env~BAR_VALUE  # the value is read from an environment variable interpreted as base64
+                value: ~base64~env~BAR_VALUE  # the value is read from the environment variable BAR_VALUE and interpreted as base64
               - name: X-Info
                 value: important
 ```
 
-Configuration fields: the fields `user`, `pass`, `name`, and `value` provide some flexibility in how to specify the values. By default, the value is used directly as a string, unless it starts with `~`. Then the value is parsed as `~[<encoding>~]<source>~<value>`.
-- `<encoding>` is optional and specifies the encoding of the value. Currently, only `base64` is supported (standard alphabet as well as URL alphabet).
-- `<source>` is required and specifies the source of the value.
+The fields `url`, `user`, `pass`, `name`, and `value` provide flexibility for specifying their values. The value is used directly as a string unless it starts with `~`. Then the value is parsed as `~[<encoding>~]<source>~<value>`:
+- `<encoding>` is optional and specifies the encoding of the value. Currently, only `base64` is supported (standard alphabet as well as URL-safe alphabet).
+- `<source>` is required and specifies the source of the value
   - `~file~XYZ` reads the value from the file `XYZ`
   - `~env~XYZ` reads the value from the environment variable `XYZ`
-  - `~direct~~XYZ` uses the value `~XYZ` directly (only required if the value starts with `~`)
+  - `~direct~~XYZ` uses the value `~XYZ` directly (only required if the value starts with `~` or if base64 encoding is required)
 
 ## Behavior
-The plugin has a simple logic: if a token is not known or has expired, a Client Authentication request is made to obtain an Access Token. If this is successful, the original request is modified by setting the 'Authorization' header to 'Bearer <token>' and continued; the token is kept in memory for later use.
+The plugin has a simple logic: if a token is not known or has expired, a Client Authentication request is made to obtain an Access Token. If this is successful, the original request is modified by setting the 'Authorization' header to 'Bearer <token>' and continued; the token is kept in memory until it expires.
 
 If the Authorization Server does not return status code 200, that response is returned to the original client. If another issue occurs, e.g., while parsing the response of the Authentication Server, the plugin itself returns an HTTP 500 error. In both cases, the original request is not performed.
 
